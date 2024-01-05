@@ -1,25 +1,49 @@
 package es.unican.ps.hoteles.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
-public class Reserva {
+@Table(name="Reservas")
+public class Reserva implements Serializable {
+	
+	@Id 
+	@GeneratedValue
 	private Long id;
+	
 	private LocalDate fechaEntrada;
 	private LocalDate fechaSalida;
+	
+	@OneToOne 
+	@JoinColumn(name="cli_fk")
 	private DatosCliente cliente;
+	
+	@OneToOne 
+	@JoinColumn(name="tar_fk")
 	private DatosPago tarjeta;
+	
+	@OneToMany(mappedBy="Reservas")
 	private List<ReservaTipoHabitacion> reservasPorTipo;
+	
 	private double importe;
-	private boolean importeCargado;
+	
+	public Reserva() {
+		
+	}
 	
 	public Reserva(LocalDate fechaEntrada, LocalDate fechaSalida) {
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;	
-		this.importeCargado = false;
 	}
 	
 	public Long getId() {
@@ -69,21 +93,12 @@ public class Reserva {
 	public void setReservasPorTipo(List<ReservaTipoHabitacion> reservasPorTipo) {
 		this.reservasPorTipo = reservasPorTipo;
 	}
-	
+
 	public double getImporte() {
-		if (!importeCargado) {
-			importe = this.calcularImporte();
-			importeCargado = true;
-		}
 		return importe;
 	}
-	
-	public double calcularImporte() {
-		double aux = 0.0;
-		for (ReservaTipoHabitacion r : reservasPorTipo) {
-			aux += r.getNumHabitaciones() * r.getTipoHabitacion().getPrecioPorNoche();
-		}
-		return aux;		
-	}
 
+	public void setImporte(double importe) {
+		this.importe = importe;
+	}
 }

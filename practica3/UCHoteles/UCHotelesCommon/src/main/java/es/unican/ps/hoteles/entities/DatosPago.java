@@ -1,14 +1,28 @@
 package es.unican.ps.hoteles.entities;
 
-import jakarta.persistence.Entity;
+import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
+
+@SuppressWarnings("serial")
 @Entity
-public class DatosPago {
+@Table(name="DatosPagos")
+public class DatosPago implements Serializable {
+	
 	private int numTarjeta;
 	private int cvc;
 	private int mesCaducidad;
 	private int anhoCaducidad;
+	
+	@Enumerated(EnumType.STRING)
 	private TipoTarjeta tipo;
+	
+	public DatosPago() {
+		
+	}
 	
 	public DatosPago(int numTarjeta, int cvc, int mesCaducidad, int anhoCaducidad) {
 		this.numTarjeta = numTarjeta;

@@ -9,6 +9,7 @@
   	<module>UCHotelesCommon</module>
   	<module>UCHotelesDAO</module>
   	<module>UCHotelesBusiness</module>
+  	<module>UCHotelesEAR</module>
   </modules>
   <properties>
 		<maven.compiler.target>11</maven.compiler.target>

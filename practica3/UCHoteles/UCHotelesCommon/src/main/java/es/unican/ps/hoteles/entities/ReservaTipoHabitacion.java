@@ -1,12 +1,30 @@
 package es.unican.ps.hoteles.entities;
 
-import jakarta.persistence.Entity;
+import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@SuppressWarnings("serial")
 @Entity
-public class ReservaTipoHabitacion {
+@Table(name="ReservaTipoHabitaciones")
+public class ReservaTipoHabitacion implements Serializable {
 	private int numHabitaciones;
+	
+	@OneToOne 
+	@JoinColumn(name="hab_fk")
 	private TipoHabitacion tipoHabitacion;
+	
+	@ManyToOne 
+	@JoinColumn(name="res_fk")
 	private Reserva reserva;
+	
+	public ReservaTipoHabitacion() {
+		
+	}
 	
 	public ReservaTipoHabitacion(int numHabitaciones, TipoHabitacion tipoHabitacion, Reserva reserva) {
 		this.numHabitaciones = numHabitaciones;

@@ -1,17 +1,37 @@
 package es.unican.ps.hoteles.entities;
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
-public class Hotel {
+@Table(name="Hoteles")
+public class Hotel implements Serializable {
 	private String nombre;
 	private String direccion;
 	private String localidad;
+	
+	@OneToMany 
+	@JoinTable(name="Propiedad_Habitaciones",            
+			joinColumns=@JoinColumn(name="Hot_FK"),
+			inverseJoinColumns=@JoinColumn(name="Hab_FK"))
 	private List<TipoHabitacion> habitaciones;
-	private Map<Long, Reserva> reservas;
+	
+	@OneToMany 
+	@JoinTable(name="Propiedad_Reservas",            
+			joinColumns=@JoinColumn(name="Hot_FK"),
+			inverseJoinColumns=@JoinColumn(name="Res_FK"))
+	private List<Reserva> reservas;
+	
+	public Hotel() {
+		
+	}
 	
 	public Hotel(String nombre, String direccion, String localidad) {
 		this.nombre = nombre;
@@ -51,11 +71,11 @@ public class Hotel {
 		this.habitaciones = habitaciones;
 	}
 
-	public Map<Long, Reserva> getReservas() {
+	public List<Reserva> getReservas() {
 		return reservas;
 	}
 
-	public void setReservas(Map<Long, Reserva> reservas) {
+	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
 	}
 }

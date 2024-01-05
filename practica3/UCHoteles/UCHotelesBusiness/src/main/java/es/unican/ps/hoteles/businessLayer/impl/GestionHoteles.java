@@ -9,9 +9,9 @@ import es.unican.ps.hoteles.daoLayer.IHotelesDAO;
 import es.unican.ps.hoteles.entities.Hotel;
 import es.unican.ps.hoteles.entities.TipoHabitacion;
 import jakarta.ejb.EJB;
-import jakarta.ejb.Stateful;
+import jakarta.ejb.Stateless;
 
-@Stateful
+@Stateless
 public class GestionHoteles implements IGestionHotel, IInfoHotel {
 
 	@EJB
@@ -29,6 +29,10 @@ public class GestionHoteles implements IGestionHotel, IInfoHotel {
 
 	public List<Hotel> consultarDisponibilidad(String nombre, String localidad, LocalDate fechaIni,
 			LocalDate fechaFin) {
+		
+		if (fechaFin.isBefore(fechaIni)) {
+			return null;
+		}
 		
 		List<Hotel> hoteles = hotelesDAO.hoteles();
 		
@@ -62,6 +66,7 @@ public class GestionHoteles implements IGestionHotel, IInfoHotel {
 			if (aux != null && 
 					!aux.equals(hotelesDAO.hotelPorLocalidad(hotel.getLocalidad()))) {
 				// Mensaje de error
+				return null;
 			}
 			aux = hotelesDAO.hotelPorLocalidad(hotel.getLocalidad());
 		}

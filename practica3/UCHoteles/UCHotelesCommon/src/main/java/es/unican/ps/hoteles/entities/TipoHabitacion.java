@@ -1,12 +1,21 @@
 package es.unican.ps.hoteles.entities;
 
-import jakarta.persistence.Entity;
+import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@SuppressWarnings("serial")
 @Entity
-public class TipoHabitacion {
+@Table(name="TipoHabitaciones")
+public class TipoHabitacion implements Serializable {
 	private String tipo;
 	private double precioPorNoche;
 	private int disponibles;
+	
+	public TipoHabitacion() {
+		
+	}
 	
 	public TipoHabitacion(String tipo, double precioPorNoche, int disponibles) {
 		this.tipo = tipo;

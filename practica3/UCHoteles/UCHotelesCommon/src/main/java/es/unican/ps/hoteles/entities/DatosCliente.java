@@ -1,12 +1,22 @@
 package es.unican.ps.hoteles.entities;
 
-import jakarta.persistence.Entity;
+import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@SuppressWarnings("serial")
 @Entity
-public class DatosCliente {
+@Table(name="DatosClientes")
+public class DatosCliente implements Serializable {
+	
 	private String dni;
 	private String nombre;
 	private String email;
+	
+	public DatosCliente() {
+		
+	}
 	
 	public DatosCliente(String dni, String nombre, String email) {
 		this.dni = dni;
