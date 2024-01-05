@@ -72,8 +72,5 @@ public class GestionHoteles implements IGestionHotel, IInfoHotel {
 		}
 		
 		return aux.getHabitaciones();
-	}
-
-	
-	
+	}	
 }
