@@ -32,7 +32,7 @@ public class Reserva implements Serializable {
 	@JoinColumn(name="tar_fk")
 	private DatosPago tarjeta;
 	
-	@OneToMany(mappedBy="Reservas")
+	@OneToMany(mappedBy="reserva")
 	private List<ReservaTipoHabitacion> reservasPorTipo;
 	
 	private double importe;

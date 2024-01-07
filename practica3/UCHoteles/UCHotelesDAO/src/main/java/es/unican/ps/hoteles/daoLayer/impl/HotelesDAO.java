@@ -10,12 +10,13 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
-@Stateless
+@Stateless(name = "ImplHotelesDAO")
 public class HotelesDAO implements IHotelesDAOLocal, IHotelesDAORemote {
 
-    @PersistenceContext(unitName = "HotelesPU")
+    @PersistenceContext(unitName="HotelesPU")
     private EntityManager em;
 
+    
     public Hotel creaHotel(Hotel hotel) {
         em.persist(hotel);
         return hotel;

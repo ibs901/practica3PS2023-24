@@ -3,6 +3,8 @@ package es.unican.ps.hoteles.entities;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -12,6 +14,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="ReservaTipoHabitaciones")
 public class ReservaTipoHabitacion implements Serializable {
+	
+	// Generado para la capa de persistencia
+	@Id 
+	@GeneratedValue
+	private Long id;
+	
 	private int numHabitaciones;
 	
 	@OneToOne 

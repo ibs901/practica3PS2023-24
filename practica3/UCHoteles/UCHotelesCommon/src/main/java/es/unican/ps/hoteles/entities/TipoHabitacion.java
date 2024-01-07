@@ -3,12 +3,20 @@ package es.unican.ps.hoteles.entities;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="TipoHabitaciones")
 public class TipoHabitacion implements Serializable {
+	
+	// Generado para la capa de persistencia
+	@Id 
+	@GeneratedValue
+	private Long id;
+	
 	private String tipo;
 	private double precioPorNoche;
 	private int disponibles;

@@ -3,19 +3,21 @@ package es.unican.ps.hoteles.businessLayer.impl;
 import java.time.LocalDate;
 import java.util.List;
 
-import es.unican.ps.hoteles.businessLayer.IGestionHotel;
-import es.unican.ps.hoteles.businessLayer.IInfoHotel;
-import es.unican.ps.hoteles.daoLayer.IHotelesDAO;
+import es.unican.ps.hoteles.businessLayer.IGestionHotelLocal;
+import es.unican.ps.hoteles.businessLayer.IGestionHotelRemote;
+import es.unican.ps.hoteles.businessLayer.IInfoHotelLocal;
+import es.unican.ps.hoteles.businessLayer.IInfoHotelRemote;
+import es.unican.ps.hoteles.daoLayer.IHotelesDAOLocal;
 import es.unican.ps.hoteles.entities.Hotel;
 import es.unican.ps.hoteles.entities.TipoHabitacion;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
-@Stateless
-public class GestionHoteles implements IGestionHotel, IInfoHotel {
-
-	@EJB
-	private IHotelesDAO hotelesDAO;
+@Stateless(name = "GestionHoteles")
+public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, IInfoHotelLocal, IInfoHotelRemote {
+	
+	@EJB(beanName = "hotelesDAO1") 
+	private IHotelesDAOLocal hotelesDAO;
 	
 	public TipoHabitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel) {
 		// TODO Auto-generated method stub

@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import es.unican.ps.hoteles.businessLayer.IGestionReserva;
-import es.unican.ps.hoteles.daoLayer.IHotelesDAO;
-import es.unican.ps.hoteles.daoLayer.IReservasDAO;
+import es.unican.ps.hoteles.businessLayer.IGestionReservaLocal;
+import es.unican.ps.hoteles.businessLayer.IGestionReservaRemote;
+import es.unican.ps.hoteles.daoLayer.IHotelesDAOLocal;
+import es.unican.ps.hoteles.daoLayer.IReservasDAOLocal;
 import es.unican.ps.hoteles.entities.DatosCliente;
 import es.unican.ps.hoteles.entities.DatosPago;
 import es.unican.ps.hoteles.entities.Hotel;
@@ -19,14 +20,14 @@ import es.unican.ps.hoteles.entities.TipoHabitacion;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
-@Stateless
-public class GestionReservas implements IGestionReserva {
+@Stateless(name = "GestionReservas")
+public class GestionReservas implements IGestionReservaLocal, IGestionReservaRemote {
 
-	@EJB
-	private IReservasDAO reservasDAO;
+	@EJB(beanName = "reservasDAO") 
+	private IReservasDAOLocal reservasDAO;
 
-	@EJB
-	private IHotelesDAO hotelesDAO;
+	@EJB(beanName = "hotelesDAO2") 
+	private IHotelesDAOLocal hotelesDAO;
 
 	public Reserva consultarReserva(Long idReserva) {
 		return reservasDAO.reserva(idReserva);
