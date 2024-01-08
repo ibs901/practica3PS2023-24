@@ -11,7 +11,7 @@
         <jta-data-source>jdbc/UCHoteles</jta-data-source> 
         
         <properties> 
-            <property name="eclipselink.ddl-generation" value="none"/> 
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/> 
         </properties>  
     </persistence-unit>
 </persistence>

@@ -6,11 +6,12 @@ import es.unican.ps.hoteles.daoLayer.IHotelesDAOLocal;
 import es.unican.ps.hoteles.daoLayer.IHotelesDAORemote;
 import es.unican.ps.hoteles.entities.Hotel;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
-@Stateless(name = "ImplHotelesDAO")
+@Stateless
 public class HotelesDAO implements IHotelesDAOLocal, IHotelesDAORemote {
 
     @PersistenceContext(unitName="HotelesPU")
@@ -18,7 +19,11 @@ public class HotelesDAO implements IHotelesDAOLocal, IHotelesDAORemote {
 
     
     public Hotel creaHotel(Hotel hotel) {
-        em.persist(hotel);
+    	try {
+            em.persist(hotel);
+    	} catch (EntityExistsException e) {
+    		return null;
+    	}
         return hotel;
     }
 

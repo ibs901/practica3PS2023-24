@@ -13,10 +13,10 @@ import es.unican.ps.hoteles.entities.TipoHabitacion;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
-@Stateless(name = "GestionHoteles")
+@Stateless
 public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, IInfoHotelLocal, IInfoHotelRemote {
 	
-	@EJB(beanName = "hotelesDAO1") 
+	@EJB
 	private IHotelesDAOLocal hotelesDAO;
 	
 	public TipoHabitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel) {

@@ -10,7 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
-@Stateless(name = "ImplReservasDAO")
+@Stateless
 public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
 
     @PersistenceContext(unitName="HotelesPU")

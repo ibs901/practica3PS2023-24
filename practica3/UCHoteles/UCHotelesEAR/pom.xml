@@ -29,6 +29,7 @@
 		<groupId>es.unican.ps</groupId>
     	<artifactId>UCHotelesDAO</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
+		<type>ejb</type>
 	</dependency>
   </dependencies>
   <build>
@@ -53,10 +54,10 @@
 						<groupId>es.unican.ps</groupId>
 						<artifactId>UCHotelesCommon</artifactId>
 					</jarModule>
-					<jarModule>
-						<groupId>es.unican.ps</groupId>
+					<ejbModule>
+						s<groupId>es.unican.ps</groupId>
 						<artifactId>UCHotelesDAO</artifactId>
-					</jarModule>
+					</ejbModule>
 				</modules>
 			</configuration>
 		</plugin>

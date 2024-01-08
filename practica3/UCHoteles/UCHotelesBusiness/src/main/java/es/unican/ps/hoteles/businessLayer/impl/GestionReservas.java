@@ -20,13 +20,13 @@ import es.unican.ps.hoteles.entities.TipoHabitacion;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
-@Stateless(name = "GestionReservas")
+@Stateless
 public class GestionReservas implements IGestionReservaLocal, IGestionReservaRemote {
 
-	@EJB(beanName = "reservasDAO") 
+	@EJB
 	private IReservasDAOLocal reservasDAO;
 
-	@EJB(beanName = "hotelesDAO2") 
+	@EJB
 	private IHotelesDAOLocal hotelesDAO;
 
 	public Reserva consultarReserva(Long idReserva) {
