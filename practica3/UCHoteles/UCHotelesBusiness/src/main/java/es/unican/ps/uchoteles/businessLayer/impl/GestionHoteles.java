@@ -20,6 +20,10 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 	@EJB
 	private IHotelesDAOLocal hotelesDAO;
 	
+	public GestionHoteles() {
+		
+	}
+	
 	public GestionHoteles(IHotelesDAOLocal hotelesDAO) {
 		this.hotelesDAO = hotelesDAO;
 	}
@@ -29,7 +33,7 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 		return null;
 	}
 
-	public boolean modificarPrecio(List<Habitacion> tiposHabitacion, Hotel hotel) {
+	public boolean modificarPrecio(List<Habitacion> habitaciones, Hotel hotel) {
 		// TODO Auto-generated method stub
 		return false;
 	}
