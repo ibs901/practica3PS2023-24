@@ -46,9 +46,8 @@ public class Hotel implements Serializable {
 
 	}
 
-	public Hotel(String nombre, String direccion, String localidad) {
+	public Hotel(String nombre, String localidad) {
 		this.nombre = nombre;
-		this.direccion = direccion;
 		this.localidad = localidad;
 	}
 

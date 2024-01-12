@@ -13,38 +13,37 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 		<br></br>
 
-		<h:dataTable value="#{gestionHotelesBean.tipoHabitaciones}" var="tipoHabitacion" border="0" cellpadding="4" 
+		<h:dataTable value="#{gestionHotelesBean.tipoHabitaciones}" var="habitacion" border="0" cellpadding="4" 
 						cellspacing="0" rules="all" style="border:solid 1px"> 
 			<h:column> 
 				<f:facet name="header"> 
 					<h:outputText value="Tipo Habitacion"/> 
 				</f:facet> 
-				<h:outputText value="#{tipoHabitacion.tipo}"/> 
+				<h:outputText value="#{habitacion.tipo}"/> 
 
 			</h:column> 
 			<h:column> 
 				<f:facet name="header"> 
 					<h:outputText value="Disponibles"/> 
 				</f:facet> 
-				<h:outputText value="#{hotel.disponibles}"/> 
+				<h:outputText value="#{habitacion.disponibles}"/> 
 			</h:column> 
 			<h:column> 
 				<f:facet name="header"> 
 					<h:outputText value="PrecioHabitacion"/> 
 				</f:facet> 
-				<h:outputText value="#{hotel.precioPorNoche}"/> 
+				<h:outputText value="#{habitacion.precioPorNoche}"/> 
 			</h:column> 
 			<h:column> 
 				<f:facet name="header"> 
 					<h:outputText value="Numero de habitaciones"/> 
 				</f:facet> 
-				<h:inputText id="numHabitaciones" value="#{gestionReservasBean.numHabitaciones}" />
 			</h:column> 
 		</h:dataTable>
 
 		<br></br>
 		
-		<h:commandButton id="buttonReservas" value="Reservar" action="#{gestionHotelesBean.reservar}" />      
+		<h:commandButton id="buttonReservas" value="Reservar" action="#{gestionReservasBean.reservar}" />      
 		<h:commandButton id="buttonVolver" value="Volver" />
 	</h:form>	
 </h:body>

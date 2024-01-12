@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import es.unican.ps.uchoteles.businessLayer.IGestionHotelRemote;
 import es.unican.ps.uchoteles.entities.Hotel;
@@ -29,20 +28,21 @@ public class GestionHotelesBean {
 	private List<Hotel> hoteles;
 	private List<Habitacion> tipoHabitaciones;
 	
+	
 	public GestionHotelesBean() {
 		
 	}
 	
 	public String consultarHoteles() {
 		hoteles = gestionHoteles.consultarHoteles(nombre, localidad);
-		return "listaHoteles";
+		return "listaHoteles.xhtml";
 	}
 	
 	public String consultarDisponibilidad(String nombre, String localidad) {
 		this.nombre = nombre;
 		this.localidad = localidad;
 		tipoHabitaciones = gestionHoteles.consultarDisponibilidad(nombre, localidad, fechaIni, fechaFin);
-		return "habitacionesHotel";
+		return "habitacionesHotel.xhtml";
 	}
 	
 	public LocalDate getFechaIni() {
@@ -66,6 +66,7 @@ public class GestionHotelesBean {
     }
 
     public void setFechaIniDate(Date fechaIniDate) {
+    	this.fechaIniDate = fechaIniDate;
         this.fechaIni = fechaIniDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
     
@@ -74,6 +75,7 @@ public class GestionHotelesBean {
     }
 
     public void setFechaFinDate(Date fechaFinDate) {
+    	this.fechaFinDate = fechaFinDate;
         this.fechaFin = fechaFinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 	
