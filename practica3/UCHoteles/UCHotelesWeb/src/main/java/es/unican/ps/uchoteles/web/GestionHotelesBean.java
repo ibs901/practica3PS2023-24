@@ -26,7 +26,7 @@ public class GestionHotelesBean {
 	private Date fechaIniDate;
 	private Date fechaFinDate;
 	private List<Hotel> hoteles;
-	private List<Habitacion> tipoHabitaciones;
+	private List<Habitacion> habitaciones;
 	
 	
 	public GestionHotelesBean() {
@@ -41,7 +41,7 @@ public class GestionHotelesBean {
 	public String consultarDisponibilidad(String nombre, String localidad) {
 		this.nombre = nombre;
 		this.localidad = localidad;
-		tipoHabitaciones = gestionHoteles.consultarDisponibilidad(nombre, localidad, fechaIni, fechaFin);
+		habitaciones = gestionHoteles.consultarDisponibilidad(nombre, localidad, fechaIni, fechaFin);
 		return "habitacionesHotel.xhtml";
 	}
 	
@@ -103,11 +103,11 @@ public class GestionHotelesBean {
 		this.hoteles = hoteles;
 	}
 
-	public List<Habitacion> getTipoHabitaciones() {
-		return tipoHabitaciones;
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
 	}
 
-	public void setTipoHabitaciones(List<Habitacion> tipoHabitaciones) {
-		this.tipoHabitaciones = tipoHabitaciones;
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
 	}
 }
