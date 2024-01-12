@@ -9,7 +9,6 @@ public interface IHotelesDAO {
 	public Hotel creaHotel(Hotel hotel);
 	public Hotel eliminaHotel(String idHotel);
 	public Hotel actualizarHotel(Hotel hotel);
-	public Hotel hotelPorLocalidad(String localidad);
-	public Hotel hotelPorNombre(String nombre);
+	public Hotel hotel(String nombre, String localidad);
 	public List<Hotel> hoteles();
 }

@@ -6,6 +6,6 @@ import es.unican.ps.uchoteles.entities.*;
 
 public interface IInfoHotel {
 
-	public TipoHabitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel);
-	public boolean modificarPrecio(List<TipoHabitacion> tiposHabitacion, Hotel hotel);
+	public Habitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel);
+	public boolean modificarPrecio(List<Habitacion> tiposHabitacion, Hotel hotel);
 }

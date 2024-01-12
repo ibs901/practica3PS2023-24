@@ -8,6 +8,7 @@ import es.unican.ps.uchoteles.entities.Hotel;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
@@ -39,20 +40,21 @@ public class HotelesDAO implements IHotelesDAOLocal, IHotelesDAORemote {
         return em.merge(hotel);
     }
 
-    public Hotel hotelPorLocalidad(String localidad) {
-        Query q = em.createQuery("SELECT h FROM Hotel h WHERE h.localidad = :localidad");
-        q.setParameter("localidad", localidad);
-        return (Hotel) q.getSingleResult();
-    }
-
-    public Hotel hotelPorNombre(String nombre) {
-        Query q = em.createQuery("SELECT h FROM Hotel h WHERE h.nombre = :nombre");
+    
+    public Hotel hotel(String nombre, String localidad) {
+    	Query q = em.createQuery("SELECT h FROM Hotel h WHERE h.nombre = :nombre AND h.localidad = :localidad");
         q.setParameter("nombre", nombre);
-        return (Hotel) q.getSingleResult();
-    }
-
+        q.setParameter("localidad", localidad);
+        try {
+        	return (Hotel) q.getSingleResult();
+        } catch (NoResultException e) {
+        	return null;
+        }
+	}
+    
+    @SuppressWarnings("unchecked")
     public List<Hotel> hoteles() {
-        Query q = em.createQuery("FROM Hotel h");
+        Query q = em.createQuery("SELECT h FROM Hotel h");
         return (List<Hotel>) q.getResultList();
-    }
+    }	
 }

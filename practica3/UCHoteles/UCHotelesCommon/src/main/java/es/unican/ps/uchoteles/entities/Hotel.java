@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -15,67 +14,73 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Hoteles")
 public class Hotel implements Serializable {
-	
-	// Generado para la capa de persistencia
-	@Id 
-	@GeneratedValue
-	private Long id;
-		
+
+	@Id 		
 	private String nombre;
-	private String direccion;
+
+	@Id
 	private String localidad;
-	
-	@OneToMany 
-	@JoinTable(name="Propiedad_Habitaciones",            
-			joinColumns=@JoinColumn(name="Hot_FK"),
-			inverseJoinColumns=@JoinColumn(name="Hab_FK"))
-	private List<TipoHabitacion> habitaciones;
-	
-	@OneToMany 
-	@JoinTable(name="Propiedad_Reservas",            
-			joinColumns=@JoinColumn(name="Hot_FK"),
-			inverseJoinColumns=@JoinColumn(name="Res_FK"))
+
+	private String direccion;
+
+	@OneToMany
+	@JoinTable(name = "Hotel_Habitaciones",
+	joinColumns = {
+			@JoinColumn(name = "hotel_nombre", referencedColumnName = "nombre"),
+			@JoinColumn(name = "hotel_localidad", referencedColumnName = "localidad")
+	},
+	inverseJoinColumns = @JoinColumn(name = "Hab_FK"))
+	private List<Habitacion> habitaciones;
+
+	@OneToMany
+	@JoinTable(name = "Hotel_Reservas",
+	joinColumns = {
+			@JoinColumn(name = "hotel_nombre", referencedColumnName = "nombre"),
+			@JoinColumn(name = "hotel_localidad", referencedColumnName = "localidad")
+	},
+	inverseJoinColumns = @JoinColumn(name = "Res_FK"))
 	private List<Reserva> reservas;
-	
+
+
 	public Hotel() {
-		
+
 	}
-	
+
 	public Hotel(String nombre, String direccion, String localidad) {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.localidad = localidad;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String getDireccion() {
 		return direccion;
 	}
-	
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
+
 	public String getLocalidad() {
 		return localidad;
 	}
-	
+
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
 
-	public List<TipoHabitacion> getHabitaciones() {
+	public List<Habitacion> getHabitaciones() {
 		return habitaciones;
 	}
 
-	public void setHabitaciones(List<TipoHabitacion> habitaciones) {
+	public void setHabitaciones(List<Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
 	}
 

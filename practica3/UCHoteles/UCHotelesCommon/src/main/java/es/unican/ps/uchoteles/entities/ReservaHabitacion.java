@@ -12,8 +12,8 @@ import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name="ReservaTipoHabitaciones")
-public class ReservaTipoHabitacion implements Serializable {
+@Table(name="ReservaHabitaciones")
+public class ReservaHabitacion implements Serializable {
 	
 	// Generado para la capa de persistencia
 	@Id 
@@ -24,17 +24,17 @@ public class ReservaTipoHabitacion implements Serializable {
 	
 	@OneToOne 
 	@JoinColumn(name="hab_fk")
-	private TipoHabitacion tipoHabitacion;
+	private Habitacion tipoHabitacion;
 	
 	@ManyToOne 
 	@JoinColumn(name="res_fk")
 	private Reserva reserva;
 	
-	public ReservaTipoHabitacion() {
+	public ReservaHabitacion() {
 		
 	}
 	
-	public ReservaTipoHabitacion(int numHabitaciones, TipoHabitacion tipoHabitacion, Reserva reserva) {
+	public ReservaHabitacion(int numHabitaciones, Habitacion tipoHabitacion, Reserva reserva) {
 		this.numHabitaciones = numHabitaciones;
 		this.tipoHabitacion = tipoHabitacion;
 		this.reserva = reserva;
@@ -48,11 +48,11 @@ public class ReservaTipoHabitacion implements Serializable {
 		this.numHabitaciones = numHabitaciones;
 	}
 
-	public TipoHabitacion getTipoHabitacion() {
+	public Habitacion getTipoHabitacion() {
 		return tipoHabitacion;
 	}
 
-	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+	public void setTipoHabitacion(Habitacion tipoHabitacion) {
 		this.tipoHabitacion = tipoHabitacion;
 	}
 

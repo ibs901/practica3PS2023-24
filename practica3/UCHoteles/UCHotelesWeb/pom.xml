@@ -7,4 +7,11 @@
   </parent>
   <artifactId>UCHotelesWeb</artifactId>
   <packaging>war</packaging>
+  <dependencies>
+  	<dependency>
+	  	<groupId>es.unican.ps</groupId>
+	  	<artifactId>UCHotelesCommon</artifactId>
+	  	<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

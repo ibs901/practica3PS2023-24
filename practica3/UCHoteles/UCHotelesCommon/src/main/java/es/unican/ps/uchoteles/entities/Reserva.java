@@ -33,7 +33,7 @@ public class Reserva implements Serializable {
 	private DatosPago tarjeta;
 	
 	@OneToMany(mappedBy="reserva")
-	private List<ReservaTipoHabitacion> reservasPorTipo;
+	private List<ReservaHabitacion> reservasPorTipo;
 	
 	private double importe;
 	
@@ -86,11 +86,11 @@ public class Reserva implements Serializable {
 		this.tarjeta = tarjeta;
 	}
 
-	public List<ReservaTipoHabitacion> getReservasPorTipo() {
+	public List<ReservaHabitacion> getReservasPorTipo() {
 		return reservasPorTipo;
 	}
 
-	public void setReservasPorTipo(List<ReservaTipoHabitacion> reservasPorTipo) {
+	public void setReservasPorTipo(List<ReservaHabitacion> reservasPorTipo) {
 		this.reservasPorTipo = reservasPorTipo;
 	}
 

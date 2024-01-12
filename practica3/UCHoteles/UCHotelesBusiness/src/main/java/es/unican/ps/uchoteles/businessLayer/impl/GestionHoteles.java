@@ -1,6 +1,7 @@
 package es.unican.ps.uchoteles.businessLayer.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.ps.uchoteles.businessLayer.IGestionHotelLocal;
@@ -9,7 +10,7 @@ import es.unican.ps.uchoteles.businessLayer.IInfoHotelLocal;
 import es.unican.ps.uchoteles.businessLayer.IInfoHotelRemote;
 import es.unican.ps.uchoteles.daoLayer.IHotelesDAOLocal;
 import es.unican.ps.uchoteles.entities.Hotel;
-import es.unican.ps.uchoteles.entities.TipoHabitacion;
+import es.unican.ps.uchoteles.entities.Habitacion;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
@@ -19,60 +20,50 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 	@EJB
 	private IHotelesDAOLocal hotelesDAO;
 	
-	public TipoHabitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel) {
+	public Habitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean modificarPrecio(List<TipoHabitacion> tiposHabitacion, Hotel hotel) {
+	public boolean modificarPrecio(List<Habitacion> tiposHabitacion, Hotel hotel) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public List<Hotel> consultarHoteles(String nombre, String localidad) {
+		
+		List<Hotel> hoteles = hotelesDAO.hoteles();
+		List<Hotel> hotelesCopia = new ArrayList<Hotel>(hoteles);
+		
+		if (nombre == null || !nombre.isEmpty()) {
+			for(Hotel h : hoteles) {
+				if (!h.getNombre().equals(nombre)) {
+					hotelesCopia.remove(h);
+				}
+			}
+		}
+		
+		if (localidad == null || !localidad.isEmpty() ) {
+			for(Hotel h : hoteles) {
+				if (!h.getLocalidad().equals(localidad)) {
+					hotelesCopia.remove(h);
+				}
+			}
+		}
+		
+		return hotelesCopia;
+	}
 
-	public List<Hotel> consultarDisponibilidad(String nombre, String localidad, LocalDate fechaIni,
-			LocalDate fechaFin) {
+	public List<Habitacion> consultarDisponibilidad(String nombre, String localidad, LocalDate fechaIni, LocalDate fechaFin) {
 		
 		if (fechaFin.isBefore(fechaIni)) {
 			return null;
 		}
 		
-		List<Hotel> hoteles = hotelesDAO.hoteles();
-		
-		if (nombre != null) {
-			for(Hotel h : hoteles) {
-				if (h.getNombre() != nombre) {
-					hoteles.remove(h);
-				}
-			}
-		}
-		
-		if (localidad != null) {
-			for(Hotel h : hoteles) {
-				if (h.getLocalidad() != localidad) {
-					hoteles.remove(h);
-				}
-			}
-		}
-		
-		return hoteles;
+		return hotelesDAO.hotel(nombre, localidad).getHabitaciones();
 	}
 
-	public List<TipoHabitacion> consultarHotel(Hotel hotel) {
-		Hotel aux = null;
-		
-		if (hotel.getNombre() != null) {
-			aux = hotelesDAO.hotelPorNombre(hotel.getNombre());
-		} 
-		
-		if (hotel.getLocalidad() != null) {
-			if (aux != null && 
-					!aux.equals(hotelesDAO.hotelPorLocalidad(hotel.getLocalidad()))) {
-				// Mensaje de error
-				return null;
-			}
-			aux = hotelesDAO.hotelPorLocalidad(hotel.getLocalidad());
-		}
-		
-		return aux.getHabitaciones();
-	}	
+	public List<Habitacion> consultarHotel(Hotel hotel) {
+		return hotelesDAO.hotel(hotel.getNombre(), hotel.getLocalidad()).getHabitaciones();
+	}
 }

@@ -15,8 +15,8 @@ import es.unican.ps.uchoteles.entities.DatosCliente;
 import es.unican.ps.uchoteles.entities.DatosPago;
 import es.unican.ps.uchoteles.entities.Hotel;
 import es.unican.ps.uchoteles.entities.Reserva;
-import es.unican.ps.uchoteles.entities.ReservaTipoHabitacion;
-import es.unican.ps.uchoteles.entities.TipoHabitacion;
+import es.unican.ps.uchoteles.entities.ReservaHabitacion;
+import es.unican.ps.uchoteles.entities.Habitacion;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
@@ -44,21 +44,21 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 	}
 
 	
-	public Reserva modificarReserva(Long idReserva, Map<TipoHabitacion, Integer> reservasPorTipo,
+	public Reserva modificarReserva(Long idReserva, Map<Habitacion, Integer> reservasPorTipo,
 			LocalDate fechaEntrada, LocalDate fechaSalida) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public double reservar(Hotel hotel, Map<TipoHabitacion, Integer> reservasPorTipo, LocalDate fechaEntrada,
+	public double reservar(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, LocalDate fechaEntrada,
 			LocalDate fechaSalida) {
 		
 		double importe = 0.0;
 		
 		long noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
 		
-		for (Entry<TipoHabitacion, Integer> entry : reservasPorTipo.entrySet()) {
-			TipoHabitacion tipo = entry.getKey();
+		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
 			if (numReservas > tipo.getDisponibles()) {
 				// Mostrar mensaje de error
@@ -70,12 +70,12 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		return importe;
 	}
 	
-	public long confirmarReserva(Hotel hotel, Map<TipoHabitacion, Integer> reservasPorTipo, 
+	public long confirmarReserva(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, 
 			DatosCliente datosUsuario, DatosPago datosPago, LocalDate fechaEntrada, 
 			LocalDate fechaSalida, double importe) {
 
-		for (Entry<TipoHabitacion, Integer> entry : reservasPorTipo.entrySet()) {
-			TipoHabitacion tipo = entry.getKey();
+		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
 			if (numReservas > tipo.getDisponibles()) {
 				// Mostrar mensaje de error
@@ -88,12 +88,12 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		reserva.setTarjeta(datosPago);
 		reserva.setImporte(importe);
 		
-		List<ReservaTipoHabitacion> reservasTipoHabitacion = new ArrayList<ReservaTipoHabitacion>();
+		List<ReservaHabitacion> reservasTipoHabitacion = new ArrayList<ReservaHabitacion>();
 		
-		for (Entry<TipoHabitacion, Integer> entry : reservasPorTipo.entrySet()) {
-			TipoHabitacion tipo = entry.getKey();
+		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
-			reservasTipoHabitacion.add(new ReservaTipoHabitacion(numReservas, tipo, reserva));
+			reservasTipoHabitacion.add(new ReservaHabitacion(numReservas, tipo, reserva));
 			tipo.setDisponibles(tipo.getDisponibles() - numReservas);
 		}
 		

@@ -40,6 +40,7 @@ public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
 		return em.find(Reserva.class, idReserva);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Reserva> reservas() {
 		// TODO Auto-generated method stub
 		Query q = em.createQuery("SELECT r FROM Reserva r");
