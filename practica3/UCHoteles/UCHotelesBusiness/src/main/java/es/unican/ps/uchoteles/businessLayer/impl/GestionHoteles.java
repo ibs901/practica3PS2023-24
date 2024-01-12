@@ -20,6 +20,10 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 	@EJB
 	private IHotelesDAOLocal hotelesDAO;
 	
+	public GestionHoteles(IHotelesDAOLocal hotelesDAO) {
+		this.hotelesDAO = hotelesDAO;
+	}
+	
 	public Habitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel) {
 		// TODO Auto-generated method stub
 		return null;
@@ -35,7 +39,7 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 		List<Hotel> hoteles = hotelesDAO.hoteles();
 		List<Hotel> hotelesCopia = new ArrayList<Hotel>(hoteles);
 		
-		if (nombre == null || !nombre.isEmpty()) {
+		if (nombre != null && !nombre.isEmpty()) {
 			for(Hotel h : hoteles) {
 				if (!h.getNombre().equals(nombre)) {
 					hotelesCopia.remove(h);
@@ -43,7 +47,7 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 			}
 		}
 		
-		if (localidad == null || !localidad.isEmpty() ) {
+		if (localidad != null && !localidad.isEmpty() ) {
 			for(Hotel h : hoteles) {
 				if (!h.getLocalidad().equals(localidad)) {
 					hotelesCopia.remove(h);
