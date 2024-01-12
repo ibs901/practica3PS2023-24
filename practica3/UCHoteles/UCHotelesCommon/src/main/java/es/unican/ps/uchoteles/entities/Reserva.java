@@ -2,8 +2,10 @@ package es.unican.ps.uchoteles.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,16 +27,16 @@ public class Reserva implements Serializable {
 	private LocalDate fechaEntrada;
 	private LocalDate fechaSalida;
 	
-	@OneToOne 
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="cli_fk")
 	private DatosCliente cliente;
 	
-	@OneToOne 
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="tar_fk")
 	private DatosPago tarjeta;
 	
-	@OneToMany(mappedBy="reserva")
-	private List<ReservaHabitacion> reservasPorTipo;
+	@OneToMany(mappedBy="reserva", cascade = CascadeType.PERSIST)
+	private List<ReservaHabitacion> reservasPorTipo = new ArrayList<ReservaHabitacion>();
 	
 	private double importe;
 	

@@ -29,7 +29,12 @@ public class GestionReservasBean {
 	private Hotel hotel;
 	private LocalDate fechaEntrada;
 	private LocalDate fechaSalida;
-	
+	private Map<Habitacion, Integer> reservasPorTipo = new HashMap<Habitacion, Integer>();
+	private String nombre;
+	private String dni;
+	private int numTarjeta;
+	private double importe;
+
 	
 	public GestionReservasBean() {
 		
@@ -39,20 +44,19 @@ public class GestionReservasBean {
 	public void inicializaHotel()
 	{ 
 		fechaEntrada = hotelesBean.getFechaIni();
-		fechaSalida = hotelesBean.getFechaFin(); 
+		fechaSalida = hotelesBean.getFechaFin();
 		hotel = new Hotel(hotelesBean.getNombre(), hotelesBean.getLocalidad());
 	}
 	
 	public String reservar() {
-		Map<Habitacion, Integer> reservasPorTipo = new HashMap<Habitacion, Integer>();
-		gestionReservas.reservar(hotel, reservasPorTipo, fechaEntrada, fechaSalida);
+		importe = gestionReservas.reservar(hotel, reservasPorTipo, fechaEntrada, fechaSalida);
 		return "datosReserva.xhtml";
 	}
 	
-	public String confirmarReserva(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, 
-			DatosCliente datosUsuario, DatosPago datosPago, LocalDate fechaEntrada,
-			LocalDate fechaSalida , double importe) {
-		
+	public String confirmarReserva() {
+		DatosCliente datosCliente = new DatosCliente(dni, nombre);
+		DatosPago datosPago = new DatosPago(numTarjeta);
+		gestionReservas.confirmarReserva(hotel, reservasPorTipo, datosCliente, datosPago, fechaEntrada, fechaSalida, importe);
 		return "confirmacionReserva.xhtml";
 	}
 
@@ -63,5 +67,60 @@ public class GestionReservasBean {
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
+	
+	public Map<Habitacion, Integer> getReservasPorTipo() {
+		return reservasPorTipo;
+	}
+	
+	public void setReservasPorTipo(Map<Habitacion, Integer> reservasPorTipo) {
+		this.reservasPorTipo = reservasPorTipo;
+	}
+	
+	public LocalDate getFechaEntrada() {
+        return fechaEntrada;
+    }
 
+    public void setFechaIni(LocalDate fechaEntrada) {
+        this.fechaEntrada = fechaEntrada;
+    }
+
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+    
+    public String getNombre() {
+    	return nombre;
+    }
+    
+    public void setNombre(String nombre) {
+    	this.nombre = nombre;
+    }
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public int getNumTarjeta() {
+		return numTarjeta;
+	}
+
+	public void setNumTarjeta(int numTarjeta) {
+		this.numTarjeta = numTarjeta;
+	}
+
+	public double getImporte() {
+		return importe;
+	}
+
+	public void setImporte(double importe) {
+		this.importe = importe;
+	}
 }

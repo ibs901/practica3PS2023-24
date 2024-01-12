@@ -1,6 +1,7 @@
 package es.unican.ps.uchoteles.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -31,7 +32,7 @@ public class Hotel implements Serializable {
 			@JoinColumn(name = "hotel_localidad", referencedColumnName = "localidad")
 	},
 	inverseJoinColumns = @JoinColumn(name = "Hab_FK"))
-	private List<Habitacion> habitaciones;
+	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 
 	@OneToMany
 	@JoinTable(name = "Hotel_Reservas",
@@ -40,7 +41,7 @@ public class Hotel implements Serializable {
 			@JoinColumn(name = "hotel_localidad", referencedColumnName = "localidad")
 	},
 	inverseJoinColumns = @JoinColumn(name = "Res_FK"))
-	private List<Reserva> reservas;
+	private List<Reserva> reservas = new ArrayList<Reserva>();
 
 
 	public Hotel() {

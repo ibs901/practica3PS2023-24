@@ -54,8 +54,8 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 			LocalDate fechaSalida) {
 		
 		double importe = 0.0;
-		
-		long noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+		long noches = 0;
+		//noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
 		
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
@@ -64,7 +64,7 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 				// Mostrar mensaje de error
 				return -1;
 			}
-			importe += tipo.getPrecioPorNoche() * noches;
+			importe += tipo.getPrecioPorNoche() * noches * numReservas;
 		}
 		
 		return importe;

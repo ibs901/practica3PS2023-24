@@ -32,6 +32,10 @@ public class DatosPago implements Serializable {
 		
 	}
 	
+	public DatosPago(int numTarjeta) {
+		this.numTarjeta = numTarjeta;
+	}
+	
 	public DatosPago(int numTarjeta, int cvc, int mesCaducidad, int anhoCaducidad) {
 		this.numTarjeta = numTarjeta;
 		this.cvc = cvc;

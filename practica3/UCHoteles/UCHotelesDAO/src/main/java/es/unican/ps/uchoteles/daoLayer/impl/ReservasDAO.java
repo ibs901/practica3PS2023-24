@@ -6,6 +6,7 @@ import es.unican.ps.uchoteles.daoLayer.IReservasDAOLocal;
 import es.unican.ps.uchoteles.daoLayer.IReservasDAORemote;
 import es.unican.ps.uchoteles.entities.Reserva;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -18,7 +19,11 @@ public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
 	
 	public Reserva creaReserva(Reserva reserva) {
 		// TODO Auto-generated method stub
-		em.persist(reserva);
+		try {
+            em.persist(reserva);
+    	} catch (EntityExistsException e) {
+    		return null;
+    	}
         return reserva;
 	}
 

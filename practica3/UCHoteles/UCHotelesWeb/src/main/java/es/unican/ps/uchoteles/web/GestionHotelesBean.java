@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.unican.ps.uchoteles.businessLayer.IGestionHotelRemote;
 import es.unican.ps.uchoteles.entities.Hotel;
+import es.unican.ps.uchoteles.entities.TipoHabitacion;
 import es.unican.ps.uchoteles.entities.Habitacion;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
@@ -44,6 +45,21 @@ public class GestionHotelesBean {
 		habitaciones = gestionHoteles.consultarDisponibilidad(nombre, localidad, fechaIni, fechaFin);
 		return "habitacionesHotel.xhtml";
 	}
+	
+	public String consultarDisponibilidad() {
+		this.nombre = "Torresport";
+		this.localidad = "Torrelavega";
+		habitaciones = gestionHoteles.consultarDisponibilidad(nombre, localidad, fechaIni, fechaFin);
+		
+		/*
+		habitaciones.add(new Habitacion(TipoHabitacion.INDIVIDUAL, 50.0, 5));
+		habitaciones.add(new Habitacion(TipoHabitacion.DOBLE, 100.0, 5));
+		*/
+
+	
+		return "habitacionesHotel.xhtml";
+	}
+
 	
 	public LocalDate getFechaIni() {
         return fechaIni;
