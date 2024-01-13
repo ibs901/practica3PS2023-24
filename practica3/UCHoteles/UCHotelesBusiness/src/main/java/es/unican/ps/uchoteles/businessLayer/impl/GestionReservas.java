@@ -55,7 +55,8 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		
 		double importe = 0.0;
 		long noches = 0;
-		//noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+		
+		// noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
 		
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
@@ -73,6 +74,16 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 	public long confirmarReserva(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, 
 			DatosCliente datosUsuario, DatosPago datosPago, LocalDate fechaEntrada, 
 			LocalDate fechaSalida, double importe) {
+		
+		// hotel = hotelesDAO.hotel(hotel.getNombre(), hotel.getLocalidad());
+		hotel = hotelesDAO.hotel("Bahia", "Santander");
+		
+		
+		
+		
+		
+		
+		
 
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
@@ -82,6 +93,23 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 				return -1;
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		fechaEntrada = LocalDate.now();
+		fechaSalida = LocalDate.now().plusDays(8);
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		Reserva reserva = new Reserva(fechaEntrada, fechaSalida);
 		reserva.setCliente(datosUsuario);

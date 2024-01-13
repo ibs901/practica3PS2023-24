@@ -25,7 +25,6 @@ public class GestionReservasBean {
 	@EJB
 	private IGestionReservaRemote gestionReservas;
 	
-	
 	private Hotel hotel;
 	private LocalDate fechaEntrada;
 	private LocalDate fechaSalida;
@@ -34,6 +33,7 @@ public class GestionReservasBean {
 	private String dni;
 	private int numTarjeta;
 	private double importe;
+	private long idReserva;
 
 	
 	public GestionReservasBean() {
@@ -41,14 +41,16 @@ public class GestionReservasBean {
 	}
 	
 	@PostConstruct
-	public void inicializaHotel()
-	{ 
+	public void inicializa() { 
 		fechaEntrada = hotelesBean.getFechaIni();
+		System.out.println("Fecha entrada postconstruct:" + fechaEntrada);
 		fechaSalida = hotelesBean.getFechaFin();
 		hotel = new Hotel(hotelesBean.getNombre(), hotelesBean.getLocalidad());
 	}
 	
 	public String reservar() {
+		System.out.println("Fecha entrada Bean:" + fechaEntrada);
+		System.out.println("Fecha salida Bean:" + fechaSalida);
 		importe = gestionReservas.reservar(hotel, reservasPorTipo, fechaEntrada, fechaSalida);
 		return "datosReserva.xhtml";
 	}
@@ -56,7 +58,7 @@ public class GestionReservasBean {
 	public String confirmarReserva() {
 		DatosCliente datosCliente = new DatosCliente(dni, nombre);
 		DatosPago datosPago = new DatosPago(numTarjeta);
-		gestionReservas.confirmarReserva(hotel, reservasPorTipo, datosCliente, datosPago, fechaEntrada, fechaSalida, importe);
+		idReserva = gestionReservas.confirmarReserva(hotel, reservasPorTipo, datosCliente, datosPago, fechaEntrada, fechaSalida, importe);
 		return "confirmacionReserva.xhtml";
 	}
 
@@ -75,22 +77,6 @@ public class GestionReservasBean {
 	public void setReservasPorTipo(Map<Habitacion, Integer> reservasPorTipo) {
 		this.reservasPorTipo = reservasPorTipo;
 	}
-	
-	public LocalDate getFechaEntrada() {
-        return fechaEntrada;
-    }
-
-    public void setFechaIni(LocalDate fechaEntrada) {
-        this.fechaEntrada = fechaEntrada;
-    }
-
-    public LocalDate getFechaSalida() {
-        return fechaSalida;
-    }
-
-    public void setFechaSalida(LocalDate fechaSalida) {
-        this.fechaSalida = fechaSalida;
-    }
     
     public String getNombre() {
     	return nombre;
@@ -122,5 +108,13 @@ public class GestionReservasBean {
 
 	public void setImporte(double importe) {
 		this.importe = importe;
+	}
+
+	public long getIdReserva() {
+		return idReserva;
+	}
+
+	public void setIdReserva(long idReserva) {
+		this.idReserva = idReserva;
 	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -25,7 +26,7 @@ public class Hotel implements Serializable {
 
 	private String direccion;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "Hotel_Habitaciones",
 	joinColumns = {
 			@JoinColumn(name = "hotel_nombre", referencedColumnName = "nombre"),
@@ -34,7 +35,7 @@ public class Hotel implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "Hab_FK"))
 	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "Hotel_Reservas",
 	joinColumns = {
 			@JoinColumn(name = "hotel_nombre", referencedColumnName = "nombre"),

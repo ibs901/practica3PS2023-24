@@ -28,8 +28,8 @@ public class HotelesDAO implements IHotelesDAOLocal, IHotelesDAORemote {
         return hotel;
     }
 
-    public Hotel eliminaHotel(String idHotel) {
-        Hotel hotel = em.find(Hotel.class, idHotel);
+    public Hotel eliminaHotel(String nombre, String localidad) {
+        Hotel hotel = hotel(nombre, localidad);
         if (hotel != null) {
             em.remove(hotel);
         }
@@ -42,9 +42,9 @@ public class HotelesDAO implements IHotelesDAOLocal, IHotelesDAORemote {
 
     
     public Hotel hotel(String nombre, String localidad) {
-    	Query q = em.createQuery("SELECT h FROM Hotel h WHERE h.nombre = :nombre AND h.localidad = :localidad");
-        q.setParameter("nombre", nombre);
-        q.setParameter("localidad", localidad);
+    	Query q = em.createQuery("SELECT h FROM Hotel h WHERE h.nombre = :nom AND h.localidad = :loc");
+        q.setParameter("nom", nombre);
+        q.setParameter("loc", localidad);
         try {
         	return (Hotel) q.getSingleResult();
         } catch (NoResultException e) {

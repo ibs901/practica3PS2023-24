@@ -2,6 +2,7 @@ package es.unican.ps.uchoteles.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,15 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="DatosPagos")
+@Embeddable
 public class DatosPago implements Serializable {
-	
-	// Generado para la capa de persistencia
-	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO) 
-	private Long id;
-	
+		
 	private int numTarjeta;
 	private int cvc;
 	private int mesCaducidad;

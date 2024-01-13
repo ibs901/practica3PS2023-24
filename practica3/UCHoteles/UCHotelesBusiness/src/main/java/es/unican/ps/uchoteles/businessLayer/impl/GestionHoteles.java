@@ -63,11 +63,11 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 	}
 
 	public List<Habitacion> consultarDisponibilidad(String nombre, String localidad, LocalDate fechaIni, LocalDate fechaFin) {
-		/*
+		
 		if (fechaFin.isBefore(fechaIni)) {
 			return null;
 		}
-		*/
+
 		return hotelesDAO.hotel(nombre, localidad).getHabitaciones();
 	}
 

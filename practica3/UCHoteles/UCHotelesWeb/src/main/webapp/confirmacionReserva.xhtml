@@ -12,13 +12,11 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 	<h:form>
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Numero Reserva" />
-			<h:outputText id="idReserva" value="#{gestionHotelesBean.idReserva}" />
+			<h:outputText id="idReserva" value="#{gestionReservasBean.idReserva}" />
 
 		</h:panelGrid>
 		
 		<br></br>
-		
-		<h:commandButton id="buttonCerrar" value="Cerrar" action="#{gestionHotelesBean.consultarDisponibilidad}" />      
 	</h:form>	
 </h:body>
 </html>

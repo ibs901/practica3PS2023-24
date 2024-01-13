@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -27,12 +29,10 @@ public class Reserva implements Serializable {
 	private LocalDate fechaEntrada;
 	private LocalDate fechaSalida;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="cli_fk")
+	@Embedded
 	private DatosCliente cliente;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="tar_fk")
+	@Embedded
 	private DatosPago tarjeta;
 	
 	@OneToMany(mappedBy="reserva", cascade = CascadeType.PERSIST)

@@ -2,17 +2,16 @@ package es.unican.ps.uchoteles.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="DatosClientes")
+@Embeddable
 public class DatosCliente implements Serializable {
 	
-	@Id 
 	private String dni;
 	private String nombre;
 	private String email;
