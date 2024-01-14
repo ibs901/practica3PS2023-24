@@ -51,13 +51,13 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 			</h:column> 
 			<h:column> 
 				<h:commandButton id="buttonDisponibilidad" value="ver Disponibilidad" 
-				    action="#{reservarBean.consultarDisponibilidad}"/>
+				    action="#{reservarBean.consultarDisponibilidad(hotel.nombre, hotel.localidad)}"/>
 			</h:column> 
 		</h:dataTable>
 		
 		<br></br>
 		
-		<h:commandButton id="buttonInicio" value="Prueba" action="#{reservarBean.consultarDisponibilidad}"/>      
+		<h:commandButton id="buttonInicio" value="Prueba" action="#{reservarBean.consultarDisponibilidad()}"/>      
 	</h:form>	
 </h:body>
 </html>

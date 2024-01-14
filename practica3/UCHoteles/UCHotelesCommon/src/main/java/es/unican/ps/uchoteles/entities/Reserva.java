@@ -36,7 +36,7 @@ public class Reserva implements Serializable {
 	private DatosPago tarjeta;
 	
 	@OneToMany(mappedBy="reserva", cascade = CascadeType.PERSIST)
-	private List<ReservaHabitacion> reservasPorTipo = new ArrayList<ReservaHabitacion>();
+	private List<ReservaHabitacion> reservasHabitacion = new ArrayList<ReservaHabitacion>();
 	
 	private double importe;
 	
@@ -89,12 +89,12 @@ public class Reserva implements Serializable {
 		this.tarjeta = tarjeta;
 	}
 
-	public List<ReservaHabitacion> getReservasPorTipo() {
-		return reservasPorTipo;
+	public List<ReservaHabitacion> getReservasHabitacion() {
+		return reservasHabitacion;
 	}
 
-	public void setReservasPorTipo(List<ReservaHabitacion> reservasPorTipo) {
-		this.reservasPorTipo = reservasPorTipo;
+	public void setReservasHabitacion(List<ReservaHabitacion> reservasHabitacion) {
+		this.reservasHabitacion = reservasHabitacion;
 	}
 
 	public double getImporte() {

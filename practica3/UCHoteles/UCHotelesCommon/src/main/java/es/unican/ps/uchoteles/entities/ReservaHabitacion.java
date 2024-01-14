@@ -25,7 +25,7 @@ public class ReservaHabitacion implements Serializable {
 	
 	@OneToOne 
 	@JoinColumn(name="hab_fk")
-	private Habitacion tipoHabitacion;
+	private Habitacion habitacion;
 	
 	@ManyToOne 
 	@JoinColumn(name="res_fk")
@@ -35,9 +35,9 @@ public class ReservaHabitacion implements Serializable {
 		
 	}
 	
-	public ReservaHabitacion(int numHabitaciones, Habitacion tipoHabitacion, Reserva reserva) {
+	public ReservaHabitacion(int numHabitaciones, Habitacion habitacion, Reserva reserva) {
 		this.numHabitaciones = numHabitaciones;
-		this.tipoHabitacion = tipoHabitacion;
+		this.habitacion = habitacion;
 		this.reserva = reserva;
 	}
 
@@ -49,12 +49,12 @@ public class ReservaHabitacion implements Serializable {
 		this.numHabitaciones = numHabitaciones;
 	}
 
-	public Habitacion getTipoHabitacion() {
-		return tipoHabitacion;
+	public Habitacion getHabitacion() {
+		return habitacion;
 	}
 
-	public void setTipoHabitacion(Habitacion tipoHabitacion) {
-		this.tipoHabitacion = tipoHabitacion;
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
 	}
 
 	public Reserva getReserva() {

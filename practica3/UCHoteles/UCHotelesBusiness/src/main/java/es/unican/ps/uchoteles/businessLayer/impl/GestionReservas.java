@@ -44,7 +44,7 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 	}
 
 
-	public Reserva modificarReserva(Long idReserva, Map<Habitacion, Integer> reservasPorTipo,
+	public Reserva modificarReserva(Long idReserva, Map<Habitacion, Integer> reservasPorHabitacion,
 			LocalDate fechaEntrada, LocalDate fechaSalida) {
 		
 		Reserva r = consultarReserva(idReserva);
@@ -62,9 +62,9 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		}
 
 
-		if (reservasPorTipo != null && !reservasPorTipo.isEmpty()) {
+		if (reservasPorHabitacion != null && !reservasPorHabitacion.isEmpty()) {
 			List<ReservaHabitacion> reservasTipoHabitacion = new ArrayList<ReservaHabitacion>();
-			for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+			for (Entry<Habitacion, Integer> entry : reservasPorHabitacion.entrySet()) {
 				Habitacion tipo = entry.getKey();
 				int numReservas = entry.getValue();
 				if (numReservas > tipo.getDisponibles()) {
@@ -74,27 +74,21 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 				reservasTipoHabitacion.add(new ReservaHabitacion(numReservas, tipo, r));
 				tipo.setDisponibles(tipo.getDisponibles() - numReservas);
 			}
-			r.setReservasPorTipo(reservasTipoHabitacion);
+			r.setReservasHabitacion(reservasTipoHabitacion);
 		}
 		
 		return reservasDAO.actualizarReserva(r);
 	}
 
-	public double reservar(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, LocalDate fechaEntrada,
+	public double reservar(Hotel hotel, Map<Habitacion, Integer> reservasPorHabitacion, LocalDate fechaEntrada,
 			LocalDate fechaSalida) {
 
 		double importe = 0.0;
 		long noches = 0;
 		
-		
-		
+		noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
 
-		// noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
-
-		
-		
-		
-		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+		for (Entry<Habitacion, Integer> entry : reservasPorHabitacion.entrySet()) {
 			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
 			if (numReservas > tipo.getDisponibles()) {
@@ -107,21 +101,13 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		return importe;
 	}
 
-	public long confirmarReserva(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, 
+	public long confirmarReserva(Hotel hotel, Map<Habitacion, Integer> reservasPorHabitacion, 
 			DatosCliente datosUsuario, DatosPago datosPago, LocalDate fechaEntrada, 
 			LocalDate fechaSalida, double importe) {
 
-		// hotel = hotelesDAO.hotel(hotel.getNombre(), hotel.getLocalidad());
-		hotel = hotelesDAO.hotel("Bahia", "Santander");
+		hotel = hotelesDAO.hotel(hotel.getNombre(), hotel.getLocalidad());
 
-
-
-
-
-
-
-
-		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+		for (Entry<Habitacion, Integer> entry : reservasPorHabitacion.entrySet()) {
 			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
 			if (numReservas > tipo.getDisponibles()) {
@@ -135,16 +121,16 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		reserva.setTarjeta(datosPago);
 		reserva.setImporte(importe);
 
-		List<ReservaHabitacion> reservasTipoHabitacion = new ArrayList<ReservaHabitacion>();
+		List<ReservaHabitacion> reservasHabitacion = new ArrayList<ReservaHabitacion>();
 
-		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+		for (Entry<Habitacion, Integer> entry : reservasPorHabitacion.entrySet()) {
 			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
-			reservasTipoHabitacion.add(new ReservaHabitacion(numReservas, tipo, reserva));
+			reservasHabitacion.add(new ReservaHabitacion(numReservas, tipo, reserva));
 			tipo.setDisponibles(tipo.getDisponibles() - numReservas);
 		}
 
-		reserva.setReservasPorTipo(reservasTipoHabitacion);
+		reserva.setReservasHabitacion(reservasHabitacion);
 		reservasDAO.creaReserva(reserva);
 		hotel.getReservas().add(reserva);
 		hotelesDAO.actualizarHotel(hotel);

@@ -10,6 +10,8 @@ public interface IGestionReserva {
 	
 	public Reserva consultarReserva(Long idReserva);
 	public boolean cancelarReserva(Long idReserva);
+	public Reserva modificarReserva(Long idReserva, Map<Habitacion, Integer> reservasPorTipo,
+			LocalDate fechaEntrada, LocalDate fechaSalida);
 	public double reservar(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo,
 			LocalDate fechaEntrada, LocalDate fechaSalida);
 	public long confirmarReserva(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, 
@@ -17,6 +19,4 @@ public interface IGestionReserva {
 			LocalDate fechaSalida , double importe);
 	public List<Reserva> consultarReservas(LocalDate fecha);
 	public List<Reserva> consultarReservas(LocalDate fechaIni, LocalDate fechaFin);
-	public Reserva modificarReserva(Long idReserva, Map<Habitacion, Integer> reservasPorTipo,
-			LocalDate fechaEntrada, LocalDate fechaSalida);
-}
+	}
