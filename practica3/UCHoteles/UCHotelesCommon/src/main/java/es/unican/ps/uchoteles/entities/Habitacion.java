@@ -1,6 +1,7 @@
 package es.unican.ps.uchoteles.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -59,4 +60,18 @@ public class Habitacion implements Serializable {
 	public void setDisponibles(int disponibles) {
 		this.disponibles = disponibles;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Habitacion habitacion = (Habitacion) obj;
+        return Objects.equals(id, habitacion.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

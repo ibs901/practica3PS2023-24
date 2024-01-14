@@ -8,6 +8,7 @@ import es.unican.ps.uchoteles.businessLayer.IGestionReservaRemote;
 import es.unican.ps.uchoteles.entities.DatosCliente;
 import es.unican.ps.uchoteles.entities.DatosPago;
 import es.unican.ps.uchoteles.entities.Hotel;
+import es.unican.ps.uchoteles.entities.TipoHabitacion;
 import es.unican.ps.uchoteles.entities.Habitacion;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
@@ -29,6 +30,7 @@ public class GestionReservasBean {
 	private LocalDate fechaEntrada;
 	private LocalDate fechaSalida;
 	private Map<Habitacion, Integer> reservasPorTipo = new HashMap<Habitacion, Integer>();
+	
 	private String nombre;
 	private String dni;
 	private int numTarjeta;
@@ -44,6 +46,7 @@ public class GestionReservasBean {
 	public void inicializa() { 
 		fechaEntrada = hotelesBean.getFechaIni();
 		System.out.println("Fecha entrada postconstruct:" + fechaEntrada);
+		
 		fechaSalida = hotelesBean.getFechaFin();
 		hotel = new Hotel(hotelesBean.getNombre(), hotelesBean.getLocalidad());
 	}
@@ -51,6 +54,7 @@ public class GestionReservasBean {
 	public String reservar() {
 		System.out.println("Fecha entrada Bean:" + fechaEntrada);
 		System.out.println("Fecha salida Bean:" + fechaSalida);
+		
 		importe = gestionReservas.reservar(hotel, reservasPorTipo, fechaEntrada, fechaSalida);
 		return "datosReserva.xhtml";
 	}
@@ -58,6 +62,9 @@ public class GestionReservasBean {
 	public String confirmarReserva() {
 		DatosCliente datosCliente = new DatosCliente(dni, nombre);
 		DatosPago datosPago = new DatosPago(numTarjeta);
+		
+		System.out.println("reservasPorTipoBean:" + reservasPorTipo);
+
 		idReserva = gestionReservas.confirmarReserva(hotel, reservasPorTipo, datosCliente, datosPago, fechaEntrada, fechaSalida, importe);
 		return "confirmacionReserva.xhtml";
 	}

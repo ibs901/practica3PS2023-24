@@ -10,6 +10,7 @@ import es.unican.ps.uchoteles.businessLayer.IInfoHotelLocal;
 import es.unican.ps.uchoteles.businessLayer.IInfoHotelRemote;
 import es.unican.ps.uchoteles.daoLayer.IHotelesDAOLocal;
 import es.unican.ps.uchoteles.entities.Hotel;
+import es.unican.ps.uchoteles.entities.TipoHabitacion;
 import es.unican.ps.uchoteles.entities.Habitacion;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -28,14 +29,32 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 		this.hotelesDAO = hotelesDAO;
 	}
 	
-	public Habitacion anhadirTipoHabitacion(String tipo, double precioPorNoche, int numDisponibles, Hotel hotel) {
-		// TODO Auto-generated method stub
-		return null;
+	public Habitacion anhadirTipoHabitacion(TipoHabitacion tipo, double precioPorNoche, int numDisponibles, Hotel hotel) {
+		List<Habitacion> habitaciones = consultarHotel(hotel);
+		Habitacion h = new Habitacion(tipo, precioPorNoche, numDisponibles);
+		habitaciones.add(h);
+		hotelesDAO.actualizarHotel(hotel);
+		return h;
 	}
 
 	public boolean modificarPrecio(List<Habitacion> habitaciones, Hotel hotel) {
-		// TODO Auto-generated method stub
-		return false;
+		List<Habitacion> habitacionesAntiguas = consultarHotel(hotel);
+		
+		if (habitacionesAntiguas == null) {
+			return false;
+		}
+		
+		for (int i = 0; i < habitaciones.size(); i++) {
+			double precioAntiguo = habitacionesAntiguas.get(i).getPrecioPorNoche();
+			double precioNuevo = habitaciones.get(i).getPrecioPorNoche();
+			if (precioAntiguo != precioNuevo) {
+				habitacionesAntiguas.get(i).setPrecioPorNoche(precioNuevo);
+			}
+		}
+		
+		hotelesDAO.actualizarHotel(hotel);
+		
+		return true;
 	}
 	
 	public List<Hotel> consultarHoteles(String nombre, String localidad) {
@@ -72,6 +91,10 @@ public class GestionHoteles implements IGestionHotelLocal, IGestionHotelRemote, 
 	}
 
 	public List<Habitacion> consultarHotel(Hotel hotel) {
-		return hotelesDAO.hotel(hotel.getNombre(), hotel.getLocalidad()).getHabitaciones();
+		Hotel h = hotelesDAO.hotel(hotel.getNombre(), hotel.getLocalidad());
+		if (h == null) {
+			return null;
+		}
+		return h.getHabitaciones();
 	}
 }

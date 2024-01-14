@@ -17,8 +17,11 @@ public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
     @PersistenceContext(unitName="HotelesPU")
 	private EntityManager em;
 	
+	public ReservasDAO(EntityManager em) {
+		this.em = em;
+	}
+
 	public Reserva creaReserva(Reserva reserva) {
-		// TODO Auto-generated method stub
 		try {
             em.persist(reserva);
     	} catch (EntityExistsException e) {
@@ -28,7 +31,6 @@ public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
 	}
 
 	public Reserva eliminaReserva(long idReserva) {
-		// TODO Auto-generated method stub
 		Reserva reserva = em.find(Reserva.class, idReserva);
         if (reserva != null) {
             em.remove(reserva);
@@ -37,7 +39,6 @@ public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
 	}
 
 	public Reserva actualizarReserva(Reserva reserva) {
-		// TODO Auto-generated method stub
 		return em.merge(reserva);
 	}
 
@@ -47,7 +48,6 @@ public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
 
 	@SuppressWarnings("unchecked")
 	public List<Reserva> reservas() {
-		// TODO Auto-generated method stub
 		Query q = em.createQuery("SELECT r FROM Reserva r");
 		return (List<Reserva>) q.getResultList();
 	}

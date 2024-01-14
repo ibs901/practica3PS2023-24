@@ -10,13 +10,18 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 <h:body>
 	<h:form>
-		<h:panelGrid columns="2">
+		<h:panelGrid columns="3">
 			<h:outputLabel value="Nombre" />
-			<h:inputText id="nombre" value="#{gestionReservasBean.nombre}" />
+			<h:inputText id="nombre" value="#{gestionReservasBean.nombre}" required="true" />			
+			<h:message for="nombre" style="color: red" />
+			
 			<h:outputLabel value="DNI" />
-			<h:inputText id="dni" value="#{gestionReservasBean.dni}" />
+			<h:inputText id="dni" value="#{gestionReservasBean.dni}" required="true" />		
+			<h:message for="dni" style="color: red" />
+			
 			<h:outputLabel value="Numero Tarjeta" />
-			<h:inputText id="numTarjeta" value="#{gestionReservasBean.numTarjeta}" />
+			<h:inputText id="numTarjeta" value="#{gestionReservasBean.numTarjeta}" required="true" />		
+			<h:message for="numTarjeta" style="color: red" />
 		</h:panelGrid>
 		
 		<br></br>

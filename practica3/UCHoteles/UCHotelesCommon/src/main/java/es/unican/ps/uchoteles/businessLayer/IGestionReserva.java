@@ -16,7 +16,7 @@ public interface IGestionReserva {
 			DatosCliente datosUsuario, DatosPago datosPago, LocalDate fechaEntrada,
 			LocalDate fechaSalida , double importe);
 	public List<Reserva> consultarReservas(LocalDate fecha);
-	public List<Reserva> consultarReservas(LocalDate fechaEntrada, LocalDate fechaSalida);
+	public List<Reserva> consultarReservas(LocalDate fechaIni, LocalDate fechaFin);
 	public Reserva modificarReserva(Long idReserva, Map<Habitacion, Integer> reservasPorTipo,
 			LocalDate fechaEntrada, LocalDate fechaSalida);
 }

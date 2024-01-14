@@ -43,21 +43,51 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		return true;
 	}
 
-	
+
 	public Reserva modificarReserva(Long idReserva, Map<Habitacion, Integer> reservasPorTipo,
 			LocalDate fechaEntrada, LocalDate fechaSalida) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Reserva r = consultarReserva(idReserva);
+
+		if (r == null) {
+			return null;
+		}
+
+		if (fechaEntrada != null && r.getFechaSalida().isAfter(fechaEntrada)) {
+			r.setFechaEntrada(fechaEntrada);
+		}
+
+		if (fechaSalida != null && r.getFechaEntrada().isBefore(fechaSalida)) {
+			r.setFechaSalida(fechaSalida);
+		}
+
+
+		if (reservasPorTipo != null && !reservasPorTipo.isEmpty()) {
+			List<ReservaHabitacion> reservasTipoHabitacion = new ArrayList<ReservaHabitacion>();
+			for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
+				Habitacion tipo = entry.getKey();
+				int numReservas = entry.getValue();
+				if (numReservas > tipo.getDisponibles()) {
+					// Mostrar mensaje de error
+					return null;
+				}
+				reservasTipoHabitacion.add(new ReservaHabitacion(numReservas, tipo, r));
+				tipo.setDisponibles(tipo.getDisponibles() - numReservas);
+			}
+			r.setReservasPorTipo(reservasTipoHabitacion);
+		}
+		
+		return reservasDAO.actualizarReserva(r);
 	}
-	
+
 	public double reservar(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, LocalDate fechaEntrada,
 			LocalDate fechaSalida) {
-		
+
 		double importe = 0.0;
 		long noches = 0;
-		
+
 		// noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
-		
+
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
@@ -67,23 +97,23 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 			}
 			importe += tipo.getPrecioPorNoche() * noches * numReservas;
 		}
-		
+
 		return importe;
 	}
-	
+
 	public long confirmarReserva(Hotel hotel, Map<Habitacion, Integer> reservasPorTipo, 
 			DatosCliente datosUsuario, DatosPago datosPago, LocalDate fechaEntrada, 
 			LocalDate fechaSalida, double importe) {
-		
+
 		// hotel = hotelesDAO.hotel(hotel.getNombre(), hotel.getLocalidad());
 		hotel = hotelesDAO.hotel("Bahia", "Santander");
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
@@ -93,52 +123,53 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 				return -1;
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		fechaEntrada = LocalDate.now();
-		fechaSalida = LocalDate.now().plusDays(8);
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		Reserva reserva = new Reserva(fechaEntrada, fechaSalida);
 		reserva.setCliente(datosUsuario);
 		reserva.setTarjeta(datosPago);
 		reserva.setImporte(importe);
-		
+
+		System.out.println("reservasPorTipo:" + reservasPorTipo);
+
+
 		List<ReservaHabitacion> reservasTipoHabitacion = new ArrayList<ReservaHabitacion>();
-		
+
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
+			System.out.println("numReservas:" + numReservas);
 			reservasTipoHabitacion.add(new ReservaHabitacion(numReservas, tipo, reserva));
 			tipo.setDisponibles(tipo.getDisponibles() - numReservas);
 		}
-		
+
 		reserva.setReservasPorTipo(reservasTipoHabitacion);
 		reservasDAO.creaReserva(reserva);
 		hotel.getReservas().add(reserva);
 		hotelesDAO.actualizarHotel(hotel);
 		return reserva.getId();
 	}
-	
+
 	public List<Reserva> consultarReservas(LocalDate fecha) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reserva> reservas = reservasDAO.reservas();
+		List<Reserva> reservasCopia = new ArrayList<Reserva>();
+
+		for(Reserva r : reservas) {
+			if (r.getFechaEntrada().isAfter(fecha)) {
+				reservasCopia.add(r);
+			}
+		}
+		return reservasCopia;
 	}
 
-	public List<Reserva> consultarReservas(LocalDate fechaEntrada, LocalDate fechaSalida) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reserva> consultarReservas(LocalDate fechaIni, LocalDate fechaFin) {
+		List<Reserva> reservas = reservasDAO.reservas();
+		List<Reserva> reservasCopia = new ArrayList<Reserva>();
+
+		for(Reserva r : reservas) {
+			if (r.getFechaEntrada().isAfter(fechaIni) && r.getFechaEntrada().isBefore(fechaFin)) {
+				reservasCopia.add(r);
+			}
+		}
+		return reservasCopia;
 	}
 }

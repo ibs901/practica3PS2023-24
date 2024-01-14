@@ -10,15 +10,19 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 <h:body>
 	<h:form>
-		<h:panelGrid columns="2">
+		<h:panelGrid columns="3">
 			<h:outputLabel value="Fecha de Entrada" />
-			<h:inputText id="fechaIni" value="#{gestionHotelesBean.fechaIniDate}" >
+			<h:inputText id="fechaIni" value="#{gestionHotelesBean.fechaIniDate}" required="true">
 				<f:convertDateTime pattern="dd/MM/yyyy"/>
 			</h:inputText>
+			<h:message for="fechaIni" style="color: red" />
+			
 			<h:outputLabel value="Fecha de Salida" />
-			<h:inputText id="fechaFin" value="#{gestionHotelesBean.fechaFinDate}" >
+			<h:inputText id="fechaFin" value="#{gestionHotelesBean.fechaFinDate}" required="true">
 				<f:convertDateTime pattern="dd/MM/yyyy"/>
 			</h:inputText>
+			<h:message for="fechaFin" style="color: red" />
+			
 		</h:panelGrid>
 		
 		<br></br>
