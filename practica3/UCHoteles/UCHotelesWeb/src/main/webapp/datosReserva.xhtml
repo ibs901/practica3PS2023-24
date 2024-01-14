@@ -12,21 +12,21 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 	<h:form>
 		<h:panelGrid columns="3">
 			<h:outputLabel value="Nombre" />
-			<h:inputText id="nombre" value="#{gestionReservasBean.nombre}" required="true" />			
+			<h:inputText id="nombre" value="#{reservarBean.nombre}" required="true" />			
 			<h:message for="nombre" style="color: red" />
 			
 			<h:outputLabel value="DNI" />
-			<h:inputText id="dni" value="#{gestionReservasBean.dni}" required="true" />		
+			<h:inputText id="dni" value="#{reservarBean.dni}" required="true" />		
 			<h:message for="dni" style="color: red" />
 			
 			<h:outputLabel value="Numero Tarjeta" />
-			<h:inputText id="numTarjeta" value="#{gestionReservasBean.numTarjeta}" required="true" />		
+			<h:inputText id="numTarjeta" value="#{reservarBean.numTarjeta}" required="true" />		
 			<h:message for="numTarjeta" style="color: red" />
 		</h:panelGrid>
 		
 		<br></br>
 		
-		<h:commandButton id="buttonConfirmarReserva" value="Reserva" action="#{gestionReservasBean.confirmarReserva}" />      
+		<h:commandButton id="buttonConfirmarReserva" value="Reserva" action="#{reservarBean.confirmarReserva}" />      
 	</h:form>	
 </h:body>
 </html>

@@ -16,6 +16,10 @@ public class ReservasDAO implements IReservasDAOLocal, IReservasDAORemote {
 
     @PersistenceContext(unitName="HotelesPU")
 	private EntityManager em;
+    
+    public ReservasDAO() {
+
+	}
 	
 	public ReservasDAO(EntityManager em) {
 		this.em = em;

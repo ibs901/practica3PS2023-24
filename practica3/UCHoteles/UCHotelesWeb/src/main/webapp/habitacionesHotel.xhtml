@@ -13,7 +13,7 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 		
 		<br></br>
 
-		<h:dataTable value="#{gestionHotelesBean.habitaciones}" var="habitacion" border="1" cellpadding="4" cellspacing="0" rules="all">
+		<h:dataTable value="#{reservarBean.habitaciones}" var="habitacion" border="1" cellpadding="4" cellspacing="0" rules="all">
 		    <h:column>
 		        <f:facet name="header">
 		            <h:outputText value="Tipo Habitacion" />
@@ -36,13 +36,13 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 		        <f:facet name="header">
 		            <h:outputText value="Reservar" />
 		        </f:facet>
-		        <h:inputText id="numHabitaciones" value="#{gestionReservasBean.reservasPorTipo[habitacion]}" />
+		        <h:inputText id="numHabitaciones" value="#{reservarBean.reservasPorTipo[habitacion]}" />
 		    </h:column>
 		</h:dataTable>
 
 		<br></br>
 		
-		<h:commandButton id="buttonReservas" value="Reservar" action="#{gestionReservasBean.reservar}" />      
+		<h:commandButton id="buttonReservas" value="Reservar" action="#{reservarBean.reservar}" />      
 		<h:commandButton id="buttonVolver" value="Volver" />
 	</h:form>	
 </h:body>

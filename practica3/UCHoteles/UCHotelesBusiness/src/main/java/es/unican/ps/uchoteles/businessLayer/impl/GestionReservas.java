@@ -85,9 +85,15 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 
 		double importe = 0.0;
 		long noches = 0;
+		
+		
+		
 
 		// noches = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
 
+		
+		
+		
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
@@ -129,15 +135,11 @@ public class GestionReservas implements IGestionReservaLocal, IGestionReservaRem
 		reserva.setTarjeta(datosPago);
 		reserva.setImporte(importe);
 
-		System.out.println("reservasPorTipo:" + reservasPorTipo);
-
-
 		List<ReservaHabitacion> reservasTipoHabitacion = new ArrayList<ReservaHabitacion>();
 
 		for (Entry<Habitacion, Integer> entry : reservasPorTipo.entrySet()) {
 			Habitacion tipo = entry.getKey();
 			int numReservas = entry.getValue();
-			System.out.println("numReservas:" + numReservas);
 			reservasTipoHabitacion.add(new ReservaHabitacion(numReservas, tipo, reserva));
 			tipo.setDisponibles(tipo.getDisponibles() - numReservas);
 		}

@@ -12,13 +12,13 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 	<h:form>
 		<h:panelGrid columns="3">
 			<h:outputLabel value="Fecha de Entrada" />
-			<h:inputText id="fechaIni" value="#{gestionHotelesBean.fechaIniDate}" required="true">
+			<h:inputText id="fechaIni" value="#{reservarBean.fechaIniDate}" required="true">
 				<f:convertDateTime pattern="dd/MM/yyyy"/>
 			</h:inputText>
 			<h:message for="fechaIni" style="color: red" />
 			
 			<h:outputLabel value="Fecha de Salida" />
-			<h:inputText id="fechaFin" value="#{gestionHotelesBean.fechaFinDate}" required="true">
+			<h:inputText id="fechaFin" value="#{reservarBean.fechaFinDate}" required="true">
 				<f:convertDateTime pattern="dd/MM/yyyy"/>
 			</h:inputText>
 			<h:message for="fechaFin" style="color: red" />
@@ -28,7 +28,7 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 		<br></br>
 		
 		
-		<h:dataTable value="#{gestionHotelesBean.hoteles}" var="hotel" border="0" cellpadding="4" 
+		<h:dataTable value="#{reservarBean.hoteles}" var="hotel" border="0" cellpadding="4" 
 						cellspacing="0" rules="all" style="border:solid 1px"> 
 			<h:column> 
 				<f:facet name="header"> 
@@ -51,13 +51,13 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 			</h:column> 
 			<h:column> 
 				<h:commandButton id="buttonDisponibilidad" value="ver Disponibilidad" 
-				    action="#{gestionHotelesBean.consultarDisponibilidad}"/>
+				    action="#{reservarBean.consultarDisponibilidad}"/>
 			</h:column> 
 		</h:dataTable>
 		
 		<br></br>
 		
-		<h:commandButton id="buttonInicio" value="Prueba" action="#{gestionHotelesBean.consultarDisponibilidad}"/>      
+		<h:commandButton id="buttonInicio" value="Prueba" action="#{reservarBean.consultarDisponibilidad}"/>      
 	</h:form>	
 </h:body>
 </html>

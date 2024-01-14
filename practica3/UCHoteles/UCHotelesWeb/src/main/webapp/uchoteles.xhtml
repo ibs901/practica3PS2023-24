@@ -12,14 +12,14 @@ xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 	<h:form>
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nombre del Hotel" />
-			<h:inputText id="nombre" value="#{gestionHotelesBean.nombre}" />
+			<h:inputText id="nombre" value="#{reservarBean.nombre}" />
 			<h:outputLabel value="Localidad" />
-			<h:inputText id="localidad" value="#{gestionHotelesBean.localidad}" />
+			<h:inputText id="localidad" value="#{reservarBean.localidad}" />
 		</h:panelGrid>
 		
 		<br></br>
 		
-		<h:commandButton id="buttonBuscar" value="Buscar" action="#{gestionHotelesBean.consultarHoteles}" />      
+		<h:commandButton id="buttonBuscar" value="Buscar" action="#{reservarBean.consultarHoteles}" />      
 		<h:commandButton id="buttonGestionar" value="Gestionar Reservas" />
 	</h:form>	
 </h:body>
